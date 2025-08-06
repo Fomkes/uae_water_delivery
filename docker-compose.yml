@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  uae-waters:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - NEXT_PUBLIC_SUPABASE_URL=https://ucmqwxhyywgkanwstsph.supabase.co
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjbXF3eGh5eXdna2Fud3N0c3BoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzM1MDQxMjYsImV4cCI6MjA0OTA4MDEyNn0.eP8bIw87i3Ub4nOhh6oJpRglKGDtm8QMPX4QY5OuJ2A
+      - SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVjbXF3eGh5eXdna2Fud3N0c3BoIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTczMzUwNDEyNiwiZXhwIjoyMDQ5MDgwMTI2fQ.pJzxUjjUm3Y8Q3E9p42hJREqzkbUXCYOOgYfwQT4SXs
+      - NEXTAUTH_SECRET=uae-waters-super-secret-key-2024
+      - NEXT_PUBLIC_API_URL=https://your-domain.com
+    restart: unless-stopped
+    volumes:
+      - ./public/uploads:/app/public/uploads
+      - ./temp:/app/temp
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/products"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
